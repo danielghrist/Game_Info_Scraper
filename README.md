@@ -1,4 +1,5 @@
 <h1>Practicing Web Scraping for Game Information</h1>
+<h2>Used these scripts to scrape video game information for my Database group project.</h2>
 <p>
   <ul>
     <li>Practicing and learning how to use BeautifulSoup and Selenium in Python for Webscraping.</li>
