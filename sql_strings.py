@@ -1,14 +1,16 @@
 '''
-SQL statements as strings for creating tables.
+Create SQL statements as strings for creating tables in MySQL to be
+used to create a file which can then be uploaded into MySQL to create
+the Schema and all 
 '''
 commit = '''COMMIT;\n'''
 
-# Schema name to create Database:
+# Choose name for Schema to be used to create Database:
 SCHEMA = "Retro_Games"
 
 header_comment = f'''/* {SCHEMA} */
-/* Daniel Ghrist (kda458) */
-/* Carlos Martinez (mro738) */
+/* Daniel Ghrist */
+/* Carlos Martinez */
 /* CS3743.004: Database Systems */
 /* Team Project (Group03): DDL */
 /* Type of SQL: MySQL */
@@ -105,31 +107,6 @@ CREATE TABLE Game (
     FOREIGN KEY(Price_ID) REFERENCES Price(Price_ID)
 );
 '''
-# game_table = f'''
-# CREATE TABLE Game (
-#     Game_ID INT UNSIGNED AUTO_INCREMENT,
-#     Console VARCHAR(255),
-#     Title VARCHAR(255),
-#     Release_Date DATE,
-#     ESRB VARCHAR(255),
-#     Publisher VARCHAR(255),
-#     Developer VARCHAR(255),
-#     Genre VARCHAR(255),
-#     UPC VARCHAR(255),
-#     PC_ID VARCHAR(255),
-#     Summary VARCHAR(3000),
-#     URL VARCHAR(255),
-#     Console_ID INT UNSIGNED,
-#     Publisher_ID INT UNSIGNED,
-#     Developer_ID INT UNSIGNED,
-#     Genre_ID INT UNSIGNED,
-#     PRIMARY KEY(Game_ID),
-#     FOREIGN KEY(Console_ID) REFERENCES Console(Console_ID),
-#     FOREIGN KEY(Publisher_ID) REFERENCES Publisher(Publisher_ID),
-#     FOREIGN KEY(Developer_ID) REFERENCES Developer(Developer_ID),
-#     FOREIGN KEY(Genre_ID) REFERENCES Genre(Genre_ID)
-# );
-# '''
 
 publishes_table = f'''
 CREATE TABLE Publishes (
