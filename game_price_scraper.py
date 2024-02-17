@@ -47,8 +47,6 @@ def scrape_console_prices(curr_console: str) -> pd.DataFrame:
     # Loop through each row and extract image, title, loose price, cib_price, and new_price:
     i = 0
     for row in game_data_row:
-        # print(f"Scraping row #{i:04}.")
-
         try:
             price_charting_id = row.get_attribute("data-product")
             # Find the URL of the thumbnail view of a game image:

@@ -1,6 +1,8 @@
 '''
-Testing out different BeautifulSoup methods of finding game information on gaming websites to scrape game details to store and compare against personal collection.
-Scrapes game information from Price Charting with help of scraper_helper.py.
+Testing out different BeautifulSoup methods of finding game information
+on gaming websites to scrape game details to store and compare against 
+personal collection. Scrapes game information from Price Charting 
+with help of scraper_helper.py.
 '''
 
 import requests
