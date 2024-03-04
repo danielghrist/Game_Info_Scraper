@@ -30,7 +30,7 @@ duplicates_df = console_games_list[console_games_list.duplicated(
 #     f"{CONSOLE}-Duplicates.csv"), lineterminator="\n", index=False)
 
 console_games_list.drop_duplicates(subset=["PC_ID"], inplace=True)
-console_games_list.replace(to_replace="none", value="Unkown", inplace=True)
+console_games_list.replace(to_replace="none", value="Unknown", inplace=True)
 # Tried doublequote=False, escapechar="\\" but didn't work gotta go back and scrape with those too.
 console_games_list.to_csv(REL_FILE_PATH.joinpath(
     f"./Duplicates/{datetime.today().strftime('%Y_%m_%d')}-{CONSOLE}-Duplicates_Dropped.csv"), lineterminator="\n", index=False, encoding="utf-8")
