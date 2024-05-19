@@ -18,7 +18,7 @@ from pathlib import Path
 
 # Create a path to where we are running this script from to find data files:
 REL_FILE_PATH = Path(__file__, "../").resolve()
-CONSOLE = "nintendo-64"
+CONSOLE = "wii"
 WEBSITE = "https://www.pricecharting.com"
 # URL = f"https://www.pricecharting.com/console/{CONSOLE}?sort=name&genre-name=&exclude-variants=false&exclude-hardware=true&when=none&release-date=2023-09-21&show-images=true"
 

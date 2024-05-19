@@ -20,7 +20,7 @@ REL_FILE_PATH = Path(__file__, "../").resolve()
 #     "./My_Collection/2023_09_30-iCollect Everything Collection.csv")
 COMBINED_GAME_INFO = REL_FILE_PATH.joinpath(
     "2023_11_16-Combined-Game_Info.csv")
-COMBINED_PRICES = REL_FILE_PATH.joinpath("2023_11_15-Combined_Prices.csv")
+COMBINED_PRICES = REL_FILE_PATH.joinpath("2024-05-19-Combined_Prices.csv")
 ### ----- END CONSTANTS ----- ###
 
 # Read in csv files to be merged:
@@ -66,8 +66,8 @@ print(merged_with_pc_id)
 
 # Write combined merged info and price DataFrame to .csv:
 ##### ----- MERGED USING PC_ID IN THE "create_sql.py" FILE ----- #####
-# merged_with_pc_id.to_csv(f"{datetime.today().strftime('%Y_%m_%d')}-Combined-Game_Info-TEST.csv",
-#                          lineterminator="\n", index=False, encoding="utf-8")
+merged_with_pc_id.to_csv(f"{datetime.today().strftime('%Y_%m_%d')}-Combined-Game_Info-TEST.csv",
+                         lineterminator="\n", index=False, encoding="utf-8")
 ##### ----- MERGED USING PC_ID IN THE "create_sql.py" FILE ----- #####
 
 ##### ----- BEGIN OLDER STUFF FROM MERGING PERSONAL COLLECTION ----- #####
@@ -77,7 +77,7 @@ print(merged_with_pc_id)
 #     f"./Prices/{Scraper.get_string_date_underscores(Scraper)}-{CONSOLE}-Collection_Price_List.csv"), lineterminator="\n", index=False, encoding="utf-8")
 ##### ----- END OLDER STUFF FROM MERGING PERSONAL COLLECTION ----- #####
 
-##### ----- BEGIN MESSING AROUND WITH FILDERS AND .loc ----- #####
+##### ----- BEGIN MESSING AROUND WITH FILTERS AND .loc ----- #####
 # wii_games_list.where(
 #     cond=my_collection["UPC"] == wii_games_list["UPC"], inplace=True)
 # print(wii_games_list.loc[filt, ["Title", "UPC"]])

@@ -1,5 +1,8 @@
 '''
-Program to scrape average eBay sold game price data for loose, CIB, and new versions of game and save to csv for that day's date. The console that is being scraped can be changed by changing the CONSOLE constant.
+Program to scrape average eBay sold game price data for loose, CIB, 
+and new versions of gameS and save to csv for that day's date. The 
+console that is being scraped can be changed by changing the 
+CONSOLE constant.
 '''
 
 import pandas as pd
@@ -11,11 +14,127 @@ from scraper_helper import Scraper
 from datetime import datetime
 # from pathlib import Path
 
+
+### ------- BEGIN C,ONSTANTS -------- ###
+PC_ID_LIST = ['19745',
+              '21626',
+              '36213',
+              '16424',
+              '10347',
+              '8621',
+              '21051',
+              '16019',
+              '31886',
+              '31880',
+              '31344',
+              '19511',
+              '36666',
+              '19668',
+              '13815',
+              '15727',
+              '30775',
+              '10876',
+              '12099',
+              '20777',
+              '32354',
+              '20120',
+              '14065',
+              '10353',
+              '18540',
+              '91077',
+              '32379',
+              '21068',
+              '20432',
+              '10879',
+              '10544',
+              '22026',
+              '10354',
+              '32823',
+              '19965',
+              '19512',
+              '15639',
+              '11055',
+              '19748',
+              '33056',
+              '31877',
+              '30334',
+              '18739',
+              '7369',
+              '32356',
+              '19407',
+              '30842',
+              '16397',
+              '10357',
+              '16403',
+              '13229',
+              '6794',
+              '7385',
+              '7386',
+              '36281',
+              '19510',
+              '21969',
+              '9362',
+              '19591',
+              '16107',
+              '20014',
+              '11867',
+              '20375',
+              '13146',
+              '13218',
+              '11871',
+              '16280',
+              '22143',
+              '33986',
+              '19483',
+              '31499',
+              '6799',
+              '19804',
+              '21630',
+              '19210',
+              '21102',
+              '31301',
+              '30703',
+              '6800',
+              '20027',
+              '16454',
+              '21107',
+              '14383',
+              '6801',
+              '22166',
+              '20411',
+              '20108',
+              '21571',
+              '14273',
+              '16365',
+              '16007',
+              '19646',
+              '30822',
+              '10562',
+              '21371',
+              '10798',
+              '11865',
+              '15952',
+              '20376',
+              '19323',
+              '14122',
+              '16282',
+              '32433',
+              '37414',
+              '7510',
+              '16227',
+              '19675',
+              '15064',
+              '11191',
+              '30777',
+              '31272',
+              '10373',
+              ]
 ### ----- LIST OF CONSOLE NAMES ----- ###
-CONSOLE_LIST = ["gameboy-advance", "gameboy", "nes",
-                "nintendo-3ds", "nintendo-64", "sega-game-gear", "super-nintendo"]
+CONSOLE_LIST = ['wii']
+# CONSOLE_LIST = ["gameboy-advance", "gameboy", "nes",
+#                 "nintendo-3ds", "nintendo-64", "sega-game-gear", "super-nintendo"]
 TODAY = datetime.today().strftime("%Y-%m-%d")
-### ----- ENDLIST OF CONSOLE NAMES ----- ###
+### ----- ENDLIST OF CONSTANTS ----- ###
 
 
 ### -----BEGIN CONSTANTS----- ###
@@ -25,7 +144,7 @@ TODAY = datetime.today().strftime("%Y-%m-%d")
 # URL = f"https://www.pricecharting.com/console/{CONSOLE}?sort=name&genre-name=&exclude-variants=false&exclude-hardware=true&when=none&release-date=2023-10-22&show-images=true"
 
 # Constant to use for which console we want to search for:
-CONSOLE = "sega-game-gear"
+# CONSOLE = "sega-game-gear"
 ### -----END CONSTANTS----- ###
 
 
@@ -39,20 +158,27 @@ def scrape_console_prices(curr_console: str) -> pd.DataFrame:
 
     # Create list for game prices:
     game_price_list = []
+    game_data_row = []
 
     # Obtain all row data in the #games_table on the website:
-    game_data_row = console_scraper.driver.find_elements(
-        By.CSS_SELECTOR, "#games_table tbody tr")
+    for pc_id in PC_ID_LIST:
+        # pc_id_on_site = console_scraper.driver.get_attribute("data-product")
+        # game_data_row = console_scraper.driver.find_elements(
+        #     By.CSS_SELECTOR, "#games_table tbody tr")
+        # temp_row = [console_scraper.driver.find_element(
+        #     By.CSS_SELECTOR, f"#games_table tbody tr [data-product='{pc_id}']")]
+        temp_row = console_scraper.driver.find_element(
+            By.CSS_SELECTOR, f"#product-{pc_id}")
+        game_data_row.append(temp_row)
 
     # Loop through each row and extract image, title, loose price, cib_price, and new_price:
-    i = 0
-    for row in game_data_row:
+    for i, row in enumerate(game_data_row):
         try:
             price_charting_id = row.get_attribute("data-product")
             # Find the URL of the thumbnail view of a game image:
             image_src = row.find_element(
                 By.CSS_SELECTOR, "td div img.photo").get_property("src")
-            # title = row.find_element(By.CSS_SELECTOR, "td.title").text
+            title = row.find_element(By.CSS_SELECTOR, "td.title").text
             loose_price = str(row.find_element(
                 By.CSS_SELECTOR, "td.used_price").text).replace("$", "")
             cib_price = str(row.find_element(
@@ -69,18 +195,17 @@ def scrape_console_prices(curr_console: str) -> pd.DataFrame:
 
         ### DEBUG PRINT ###
         # print(
-        # f"Title: {title} | Loose Price: {loose_price} | CIB Price: {cib_price} | New Price: {new_price}")
+        #     f"Title: {title} | Loose Price: {loose_price} | CIB Price: {cib_price} | New Price: {new_price}")
         ### DEBUG PRINT ###
         # Add data for each game to game_dict dictionary:
         game_price_list.append({
             "PC_ID": price_charting_id,
-            # "Title": title,
+            "Title": title,
             "Loose_Price": loose_price,  # .replace(",", ""),
             "CIB_Price": cib_price,  # .replace(",", ""),
             "New_Price": new_price,  # .replace(",", ""),
             "Image_URL": image_src,
         })
-        i += 1
 
     # Close the webdriver browser:
     console_scraper.close_webdriver()

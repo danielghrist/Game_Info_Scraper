@@ -18,7 +18,7 @@ SCROLL_PAUSE_TIME = 1
 # Create a path to where we are running this script from to find data files:
 REL_FILE_PATH = Path(__file__, "../").resolve()
 # "true" if you want to exclude variants, "false" if you want to include them:
-EXCLUDE_VARIANTS = "true"
+EXCLUDE_VARIANTS = "false"
 ### -----END CONSTANTS----- ###
 
 
