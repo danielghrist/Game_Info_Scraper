@@ -131,7 +131,7 @@ from datetime import datetime
 #               '10373',
 #               ]
 ### ----- LIST OF CONSOLE NAMES ----- ###
-CONSOLE_LIST = ['nes']
+CONSOLE_LIST = ['sega-game-gear']
 # CONSOLE_LIST = ["gameboy-advance", "gameboy", "nes",
 #                 "nintendo-3ds", "nintendo-64", "sega-game-gear", "super-nintendo"]
 TODAY = datetime.today().strftime("%Y-%m-%d")
@@ -184,8 +184,12 @@ def scrape_console_prices(curr_console: str) -> pd.DataFrame:
             image_src = row.find_element(
                 By.CSS_SELECTOR, "td div img.photo").get_property("src")
             title = row.find_element(By.CSS_SELECTOR, "td.title").text
+            # For Games:
             loose_price = str(row.find_element(
                 By.CSS_SELECTOR, "td.used_price").text).replace("$", "")
+            # For Amiibo:
+            # loose_price = str(row.find_element(
+            #     By.CSS_SELECTOR, "td span.js-price").text).replace("$", "")
             cib_price = str(row.find_element(
                 By.CSS_SELECTOR, "td.cib_price").text).replace("$", "")
             new_price = str(row.find_element(
@@ -194,7 +198,7 @@ def scrape_console_prices(curr_console: str) -> pd.DataFrame:
             # cib_price.replace(",", "")
             # new_price.replace(",", "")
             print(
-                f"Scraping row #{i:04}: {loose_price}, {cib_price}, {new_price}.")
+                f"Scraping row #{i:04}: {title}\t\t\t\t {loose_price}, {cib_price}, {new_price}.")
         except Exception as e:
             print(f"You had an error: {e}.")
 

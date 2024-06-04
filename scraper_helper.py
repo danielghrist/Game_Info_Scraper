@@ -19,6 +19,7 @@ SCROLL_PAUSE_TIME = 1
 REL_FILE_PATH = Path(__file__, "../").resolve()
 # "true" if you want to exclude variants, "false" if you want to include them:
 EXCLUDE_VARIANTS = "true"
+EXCLUDE_HARDWARE = "true"
 ### -----END CONSTANTS----- ###
 
 
@@ -28,7 +29,7 @@ class Scraper:
         Creates Scraper object with whatever console is passed in and creates the link needed to begin scraping as well as initializing a Chrome webdriver.
         '''
         self.__console = console.lower()
-        self.__link = f"https://www.pricecharting.com/console/{self.__console}?sort=name&genre-name=&exclude-variants={EXCLUDE_VARIANTS}&exclude-hardware=true&when=none&release-date={self.get_string_date_dashes()}&show-images=true"
+        self.__link = f"https://www.pricecharting.com/console/{self.__console}?sort=name&genre-name=&exclude-variants={EXCLUDE_VARIANTS}&exclude-hardware={EXCLUDE_HARDWARE}&when=none&release-date={self.get_string_date_dashes()}&show-images=true"
         self.driver = self.__init_webdriver(self.__link)
 
     def __init_webdriver(self, url: str) -> webdriver:
